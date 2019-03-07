@@ -10,7 +10,13 @@
             margin: 0;
             padding:0;
         }
-    kbd{display: inline-block;
+        body{
+           text-align:center;
+           background:url(images/sky.jpg) no-repeat center center;
+           background-size: cover;
+        }
+    kbd{
+        display: inline-block;
         width: 4em;
         height: 4em;
         border:1px solid red;
@@ -23,8 +29,20 @@
    .contain>div:nth-child(3){
         margin-left: 2em;
     }
-    main .contain{
+    main{
+        display: inline-flex;
+        align-items: center;
+        justify-content:center;
+        height: 100vh;
         text-align: center;
+    }
+    #main{
+        display: inline-block;
+
+    }
+    .contain{
+        background:rgba(255,255,255,0.5) ;
+        border-radius:20px;
     }
     kbd{
         position:relative;
@@ -38,16 +56,54 @@
     kbd:hover > button{
         display: inline-block;
     }
+    .key{
+        width: 50px;
+        height: 40px;
+        background: linear-gradient(to bottom, #292929 2%,#111111 100%); 
+        border:none;
+        color:#c5c5c5;
+        border-radius:7px;
+        box-shadow:0 0 0 1px #1A1B1C,0 0 0 2px #1F2020,0 3px 0 2px #080808;
+        
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        position: relative;
+    }
+    .text{
+        position: absolute;
+        top:2px;
+        left:4px;
+    }
+    .key img{
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        bottom:2px;
+        left:4px;
+    }
+    .row{
+        margin:16px;
+    }
+    .row .key{
+        margin:0 10px;
+    }
+    #main> div:nth-child(2){
+        margin-left:-16px;
+    }
+    #main>div:nth-child(3){
+        margin-left:-90px;
+    }
     </style>
 </head>
 <body>
     <header>        
     </header>
     <main>
-      <div class="contain" id="x"></div> 
+      <div class="contain" id="main"></div> 
     </main>
     <footer></footer>
     <script>
+        //初始化数据
     var keys= {
         0:['q','w','e','r','t','y','u','i','o','p'],
         1:['a','s','d','f','g','h','j','k','l'],
@@ -69,7 +125,7 @@
             's':"sougou.com",
             'd':"douyu.com",
             'f':"firefox.com",
-            'g':"google.com",
+            'g':"guazi.com",
             'h':"huya.com",
             'j':"jd.com",
             'k':"kuaidi100.com",
@@ -82,39 +138,73 @@
             'n':"nba.com",
             'm':"maoyan.com"
         }
-var hashInLocalStorage=JSON.parse(localStorage.getItem("zzz") ||"null")
+var hashInLocalStorage=getFromLocalstorage('zzz')
 if(hashInLocalStorage){
     hash=hashInLocalStorage
 }
+function getFromLocalstorage(name){
+    JSON.parse(localStorage.getItem("name") ||"null")
+}
+function tag(tagName){
+    return document.createElement(tagName)
+    for(var key in attributes){
+        element[key]= attributes[key]
+    }
+    return element
+}
+
+//生成键盘
         index=0;
         while(index<keys.length)
         {
-            div1=document.createElement("div");
-            x.appendChild(div1);
+            var div=tag("div",{className:'row'});
+            div.className='row'
+            main.appendChild(div);
             row=keys[index];//第一个数组 第二个数组 第三个数组
-            index2=0;
+            var index2=0;
         while(index2<row.length){
-            z=document.createElement("kbd")
-            z.textContent=row[index2];
-            div1.appendChild(z);
-            buttonx=document.createElement("button")
-            buttonx.textContent="编辑"
-            buttonx.id=row[index2]
-            
-            buttonx.onclick=function(xzkjcnxlkcjlk){
-                key=xzkjcnxlkcjlk["target"]["id"];
-               x= prompt("给我一个网址")
+            var kbd=tag("kbd")
+            var span=tag('span')
+            span.textContent=row[index2];
+            kbd.appendChild(span)
+            span.className='text'
+            kbd.className='key'
+            div.appendChild(kbd);
+            var button=tag("button")
+            button.textContent="编辑"
+            button.id=row[index2]
+            var imgxxx=tag('img')
+            if(hash[row[index2]]){
+                imgxxx.src='http://'+hash[row[index2]]+'/favicon.ico'
+            }else{
+                imgxxx.src='https://i.loli.net/2019/03/07/5c7ff86b311ae.png'
+            }
+            imgxxx.onerror=function(xxx){
+                xxx.target.src="https://i.loli.net/2019/03/07/5c7ff86b311ae.png"
+            }
+            button.onclick=function(xzkjcnxlkcjlk){
+                var button2=xzkjcnxlkcjlk["target"]
+               var img2=button2.previousSibling
+                var key=button2["id"];
+               var x= prompt("给我一个网址")
                hash[key]=x
+               img2.src="http://"+x +"/favicon.ico"
+               img2.onerror=function(xxx){  
+                xxx.target.src="https://i.loli.net/2019/03/07/5c7ff86b311ae.png"
+               }
                localStorage.setItem("zzz",JSON.stringify(hash))
                console.log(hash)
             }
-            z.appendChild(buttonx)
+            
+            kbd.appendChild(button)
+            kbd.appendChild(imgxxx)
             index2=index2+1;
         }
                 index=index+1;
         }
+        //键盘监听
         document.onkeypress=function(xzkjcnxlkcjlk){
-           key =xzkjcnxlkcjlk["key"]
+            var key =xzkjcnxlkcjlk["key"]
            website=hash[key]
         //    location.href= "http://"+website
            window.open("http://"+website, "_blank")
