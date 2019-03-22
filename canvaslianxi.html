@@ -68,11 +68,23 @@
     .colors li.red{
       background-color: red;
     }
+    .colors li.orange{
+      background-color:orange;
+    }
+    .colors li.yellow{
+      background-color:yellow;
+    }
     .colors li.green{
       background-color: green;
     }
+    .colors li.cyan{
+      background-color:cyan;
+    }
     .colors li.blue{
       background-color:blue;
+    }
+    .colors li.purple{
+      background-color:purple;
     }
     .colors li.active{
       box-shadow: 0 0 3px rgba(0,0,0,0.95);
@@ -137,8 +149,12 @@
   <div class="colors">
     <ol>
       <li id="red" class="red active"></li>
+      <li id="orange" class="orange"></li>
+       <li id="yellow" class="yellow"></li>
       <li id="green" class="green"></li>
+      <li id="cyan" class="cyan"></li>
       <li id="blue" class="blue"></li>
+      <li id="purple" class="purple"></li> 
     </ol>
   </div>
   <div class="lineWidths">
@@ -151,7 +167,7 @@
  
 var yyy = document.getElementById('xxx');
 var context = yyy.getContext('2d');
-var lineWidth=5
+var lineWidth=5;
 
 autoSetCanvasSize(yyy)
 
@@ -174,13 +190,20 @@ red.onclick = function(){
   context.strokeStyle = 'red'
   red.classList.add('active')
   green.classList.remove('active')
-  blue.classList.remove('active')
+  orange.classList.remove('active')
+  yellow.classList.remove('active')
+  purple.classList.remove('active')
+  cyan.classList.remove('active')
 }
 green.onclick = function(){
   context.strokeStyle = 'green'
   green.classList.add('active')
   red.classList.remove('active')
   blue.classList.remove('active')
+  orange.classList.remove('active')
+  yellow.classList.remove('active')
+  purple.classList.remove('active')
+  cyan.classList.remove('active')
 }
 
 blue.onclick = function(){
@@ -188,6 +211,50 @@ blue.onclick = function(){
   blue.classList.add('active')
   green.classList.remove('active')
   red.classList.remove('active') 
+  orange.classList.remove('active')
+  yellow.classList.remove('active')
+  purple.classList.remove('active')
+  cyan.classList.remove('active')
+}
+orange.onclick = function(){
+  context.strokeStyle = 'orange'
+ orange.classList.add('active') 
+ red.classList.remove('active')
+ green.classList.remove('active')
+  blue.classList.remove('active') 
+  yellow.classList.remove('active')
+  purple.classList.remove('active')
+  cyan.classList.remove('active') 
+}
+yellow.onclick = function(){
+  context.strokeStyle = 'yellow'
+  yellow.classList.add('active')
+  red.classList.remove('active')
+  green.classList.remove('active')
+  blue.classList.remove('active') 
+  orange.classList.remove('active')
+  purple.classList.remove('active')
+  cyan.classList.remove('active') 
+}
+purple.onclick = function(){
+  context.strokeStyle = 'purple'
+  purple.classList.add('active')
+  red.classList.remove('active')
+  green.classList.remove('active')
+  blue.classList.remove('active') 
+  orange.classList.remove('active')
+  yellow.classList.remove('active')
+  cyan.classList.remove('active') 
+}
+cyan.onclick = function(){
+  context.strokeStyle = 'cyan'
+  cyan.classList.add('active')
+  red.classList.remove('active')
+  green.classList.remove('active')
+  blue.classList.remove('active') 
+  orange.classList.remove('active')
+  yellow.classList.remove('active')
+  purple.classList.remove('active') 
 }
 
 thin.onclick = function(){
@@ -294,7 +361,6 @@ function listenToUser(canvas) {
     canvas.onmousedown = function(aaa) {
     var x = aaa.clientX
     var y = aaa.clientY
-    console.log(x,y)
     using = true
     if (eraserEnabled) {
       context.clearRect(x - 5, y - 5, 10, 10)
@@ -330,11 +396,11 @@ function listenToUser(canvas) {
   }
   } 
 }
-document.body.ontouchstart = function(){
-  event.preventDefault()
+document.body.ontouchstart = function(zzz){
+   zzz.preventDefault()
  } 
 </script>
-<script src="//at.alicdn.com/t/font_1092491_3ndu2z2fjbr.js"> </script>
+<script src="//at.alicdn.com/t/font_1092491_xpmp0orwcd.js"> </script>
 </body>
 
 </html>
